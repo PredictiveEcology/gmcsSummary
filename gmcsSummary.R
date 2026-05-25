@@ -57,7 +57,7 @@ doEvent.gmcsSummary <- function(sim, eventTime, eventType) {
         stop("sim$gmcsPredictions not found or empty.")
       }
       
-      gmcs_dt <- data.table::rbindlist(sim$gmcsPredictions, 
+      gmcs_dt <- data.table::rbindlist(sim$gmcsPredictions,
                                        fill = TRUE, use.names = TRUE, idcol = "predictionGroup")
       
       gmcs_dt[, year := time(sim)]
@@ -127,11 +127,12 @@ doEvent.gmcsSummary <- function(sim, eventTime, eventType) {
         geom_point(size = 2) +
         facet_wrap(~Metric, scales = "free_y") +
         labs(title = "Mean Mortality and Growth Predictions",
-             x = "Year", 
+             x = "Year",
              y = "mean predicted value") +
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-              axis.text.x = element_text(angle = 45, hjust = 1))
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              legend.position="none")
       
       ggsave(file.path(outDir, "ModelsOverTime_mean.png"),
              p_time_mean, width = 10, height = 6, dpi = 150)
@@ -147,69 +148,74 @@ doEvent.gmcsSummary <- function(sim, eventTime, eventType) {
         geom_point(size = 2) +
         facet_wrap(~Metric, scales = "free_y") +
         labs(title = "Median Mortality and Growth Predictions",
-             x = "Year", 
+             x = "Year",
              y = "median predicted value") +
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-              axis.text.x = element_text(angle = 45, hjust = 1))
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              legend.position="none")
       
       ggsave(file.path(outDir, "ModelsOverTime_median.png"),
              p_time_median, width = 10, height = 6, dpi = 150)
       
       ## mean by species
       p_mort_mean <- ggplot(spDT, aes(x = year, y = mean_mortPred, colour = speciesCode, group = speciesCode)) +
-        geom_line() + 
-        geom_point() + 
+        geom_line() +
+        geom_point() +
         facet_wrap(~speciesCode, scales = "free_y") +
         labs(title = "Mean GMCS Mortality Predictions by Species",
-             x = "Year", 
+             x = "Year",
              y = "mean mortality prediction") +
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-              axis.text.x = element_text(angle = 45, hjust = 1))
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              legend.position="none")
       
       ggsave(file.path(outDir, "species_mean_Mortality.png"),
              p_mort_mean, width = 12, height = 8, dpi = 150)
       
       p_growth_mean <- ggplot(spDT, aes(x = year, y = mean_growthPred, colour = speciesCode, group = speciesCode)) +
-        geom_line() + 
-        geom_point() + 
+        geom_line() +
+        geom_point() +
         facet_wrap(~speciesCode, scales = "free_y") +
         labs(title = "Mean GMCS Growth Predictions by Species",
-             x = "Year", 
+             x = "Year",
              y = "mean growth prediction") +
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-              axis.text.x = element_text(angle = 45, hjust = 1))
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              legend.position="none")
       
       ggsave(file.path(outDir, "species_mean_Growth.png"),
              p_growth_mean, width = 12, height = 8, dpi = 150)
       
       ## median by species
       p_mort_median <- ggplot(spDT, aes(x = year, y = median_mortPred, colour = speciesCode, group = speciesCode)) +
-        geom_line() + 
-        geom_point() + 
+        geom_line() +
+        geom_point() +
         facet_wrap(~speciesCode, scales = "free_y") +
         labs(title = "Median GMCS Mortality Predictions by Species",
-             x = "Year", 
+             x = "Year",
              y = "median mortality prediction") +
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-              axis.text.x = element_text(angle = 45, hjust = 1))
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              legend.position="none")
       
       ggsave(file.path(outDir, "species_median_Mortality.png"),
              p_mort_median, width = 12, height = 8, dpi = 150)
       
       p_growth_median <- ggplot(spDT, aes(x = year, y = median_growthPred, colour = speciesCode, group = speciesCode)) +
-        geom_line() + 
-        geom_point() + 
+        geom_line() +
+        geom_point() +
         facet_wrap(~speciesCode, scales = "free_y") +
         labs(title = "Median GMCS Growth Predictions by Species",
-             x = "Year", 
+             x = "Year",
              y = "median growth prediction") +
         theme_minimal() +
         theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-              axis.text.x = element_text(angle = 45, hjust = 1))
+              axis.text.x = element_text(angle = 45, hjust = 1),
+              legend.position="none")
       
       ggsave(file.path(outDir, "species_median_Growth.png"),
              p_growth_median, width = 12, height = 8, dpi = 150)
