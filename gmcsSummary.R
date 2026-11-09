@@ -48,7 +48,8 @@ doEvent.gmcsSummary <- function(sim, eventTime, eventType) {
     eventType,
     init = {
       sim <- scheduleEvent(sim, start(sim), module = "gmcsSummary", eventType = "Summarizing", eventPriority = .last())
-      sim <- scheduleEvent(sim, end(sim), module = "gmcsSummary", eventType = "Plotting", eventPriority = .last())
+      ## later priority than the final Summarizing event, so the last year is included in the plots
+      sim <- scheduleEvent(sim, end(sim), module = "gmcsSummary", eventType = "Plotting", eventPriority = .last() + 1)
     },
     
     Summarizing = {
